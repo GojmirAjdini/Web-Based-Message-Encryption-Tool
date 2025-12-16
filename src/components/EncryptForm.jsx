@@ -6,6 +6,12 @@ function EncryptForm() {
   const [secretKey, setSecretKey] = useState("");
   const [encrypted, setEncrypted] = useState("");
 
+  const setNull = () =>{
+    setMessage("");
+    setSecretKey("");
+    setEncrypted("");
+  }
+
   const handleEncrypt = () => {
     if (!message || !secretKey) return;
     const ciphertext = CryptoJS.AES.encrypt(message, secretKey).toString();
@@ -33,7 +39,7 @@ function EncryptForm() {
       />
 
       <button onClick={handleEncrypt}>Encrypt</button>
-
+      <button style={{marginLeft:20, backgroundColor:'#1f1f1f23', color:'black'}} onClick={setNull}>Clear</button>
       <label>Encrypted Output</label>
       <textarea readOnly value={encrypted} />
     </div>

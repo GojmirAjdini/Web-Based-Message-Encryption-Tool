@@ -6,6 +6,12 @@ function DecryptForm() {
   const [secretKey, setSecretKey] = useState("");
   const [decrypted, setDecrypted] = useState("");
 
+  const setNull = () =>{
+    setDecrypted("");
+    setEncryptedText("");
+    setSecretKey("");
+  }
+
   const handleDecrypt = () => {
     if (!encryptedText || !secretKey) return;
     try {
@@ -22,7 +28,7 @@ function DecryptForm() {
       <h2>Text Decryption</h2>
       <label>Enter Encrypted Text to Decrypt</label>
       <textarea
-        placeholder="Paste encrypted text"
+        placeholder="Enter encrypted text"
         value={encryptedText}
         onChange={(e) => setEncryptedText(e.target.value)}
       />
@@ -38,6 +44,7 @@ function DecryptForm() {
       />
 
       <button onClick={handleDecrypt}>Decrypt</button>
+      <button style={{marginLeft:20, backgroundColor:'#1f1f1f23', color:'black'}} onClick={setNull}>Clear</button>
 
       <label>Decrypted Text</label>
       <textarea readOnly value={decrypted} />
