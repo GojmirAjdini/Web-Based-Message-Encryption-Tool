@@ -90,3 +90,15 @@ button:hover {
     border: none;
   }
 }
+
+.clearBtn {
+  margin-left: 20px;
+  background-color: #1f1f1f23;
+  color: black;
+}
+
+.clearBtn:hover {
+  margin-left: 20px;
+  background-color: #a3a3a33f;
+  color: black;
+}

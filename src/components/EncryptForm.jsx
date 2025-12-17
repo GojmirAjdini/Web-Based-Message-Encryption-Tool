@@ -39,7 +39,7 @@ function EncryptForm() {
       />
 
       <button onClick={handleEncrypt}>Encrypt</button>
-      <button style={{marginLeft:20, backgroundColor:'#1f1f1f23', color:'black'}} onClick={setNull}>Clear</button>
+      <button className="clearBtn" onClick={setNull}>Clear</button>
       <label>Encrypted Output</label>
       <textarea readOnly value={encrypted} />
     </div>
