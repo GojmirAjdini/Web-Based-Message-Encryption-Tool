@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import CryptoJS from "crypto-js";
 
 function EncryptForm() {
@@ -6,21 +6,38 @@ function EncryptForm() {
   const [secretKey, setSecretKey] = useState("");
   const [encrypted, setEncrypted] = useState("");
 
-  const setNull = () =>{
+  useEffect(() => {
+    const storedKey = sessionStorage.getItem("secretKey");
+    const storedEncrypted = sessionStorage.getItem("encrypted");
+
+    if (storedKey) setSecretKey(storedKey);
+    if (storedEncrypted) setEncrypted(storedEncrypted);
+  }, []);
+
+  const setNull = () => {
     setMessage("");
     setSecretKey("");
     setEncrypted("");
-  }
+
+
+    sessionStorage.removeItem("secretKey");
+    sessionStorage.removeItem("encrypted");
+  };
 
   const handleEncrypt = () => {
     if (!message || !secretKey) return;
+
     const ciphertext = CryptoJS.AES.encrypt(message, secretKey).toString();
     setEncrypted(ciphertext);
+
+    sessionStorage.setItem("secretKey", secretKey);
+    sessionStorage.setItem("encrypted", ciphertext);
   };
 
   return (
     <div className="box">
       <h2>Text Encryption</h2>
+
       <label>Enter any text to be Encrypted</label>
       <textarea
         placeholder="Enter text to encrypt"
@@ -28,9 +45,7 @@ function EncryptForm() {
         onChange={(e) => setMessage(e.target.value)}
       />
 
-      <label>
-        Secret Key
-      </label>
+      <label>Secret Key</label>
       <input
         type="text"
         placeholder="Enter Secret Key"
@@ -40,6 +55,7 @@ function EncryptForm() {
 
       <button onClick={handleEncrypt}>Encrypt</button>
       <button className="clearBtn" onClick={setNull}>Clear</button>
+
       <label>Encrypted Output</label>
       <textarea readOnly value={encrypted} />
     </div>

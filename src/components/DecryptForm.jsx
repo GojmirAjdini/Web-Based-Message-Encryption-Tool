@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import CryptoJS from "crypto-js";
 
 function DecryptForm() {
@@ -6,18 +6,38 @@ function DecryptForm() {
   const [secretKey, setSecretKey] = useState("");
   const [decrypted, setDecrypted] = useState("");
 
-  const setNull = () =>{
+  
+  useEffect(() => {
+    const storedEncrypted = sessionStorage.getItem("encrypted");
+    const storedKey = sessionStorage.getItem("secretKey");
+
+    if (storedEncrypted) setEncryptedText(storedEncrypted);
+    if (storedKey) setSecretKey(storedKey);
+  }, []);
+
+  const setNull = () => {
     setDecrypted("");
     setEncryptedText("");
     setSecretKey("");
-  }
+
+  
+    sessionStorage.removeItem("encrypted");
+    sessionStorage.removeItem("secretKey");
+  };
 
   const handleDecrypt = () => {
     if (!encryptedText || !secretKey) return;
+
     try {
       const bytes = CryptoJS.AES.decrypt(encryptedText, secretKey);
       const text = bytes.toString(CryptoJS.enc.Utf8);
-      setDecrypted(text || "Invalid secret key or encrypted text");
+
+      const result = text || "Invalid secret key or encrypted text";
+      setDecrypted(result);
+
+     
+      sessionStorage.setItem("encrypted", encryptedText);
+      sessionStorage.setItem("secretKey", secretKey);
     } catch {
       setDecrypted("Decryption error");
     }
@@ -26,6 +46,7 @@ function DecryptForm() {
   return (
     <div className="box">
       <h2>Text Decryption</h2>
+
       <label>Enter Encrypted Text to Decrypt</label>
       <textarea
         placeholder="Enter encrypted text"
@@ -33,9 +54,7 @@ function DecryptForm() {
         onChange={(e) => setEncryptedText(e.target.value)}
       />
 
-      <label>
-        Secret Key
-      </label>
+      <label>Secret Key</label>
       <input
         type="text"
         placeholder="Enter Secret Key"

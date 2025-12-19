@@ -83,7 +83,6 @@ button:hover {
   cursor: default;
 }
 
-/* Responsive: stack on narrow screens */
 @media (max-width: 900px) {
   .grid {
     grid-template-columns: 1fr;
