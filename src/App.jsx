@@ -1,16 +1,32 @@
-import EncryptForm from "./components/EncryptForm";
-import DecryptForm from "./components/DecryptForm";
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./Pages/Home";
+import AESPage from "./Pages/AESPage";
+import DESPage from "./Pages/DESPage";
+import RSAPage from "./Pages/RSAPage";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer"; // Importo Footer-in
 import "./App.css";
 
 function App() {
   return (
-    <div className="app-container">
-      <h1 style={{textAlign:'center', marginTop:50, marginBottom:'50px'}}>Web-Based Encryption Tool</h1>
-      <div className="grid">
-        <EncryptForm />
-        <DecryptForm />
+    <Router>
+      {/* Navbar jashtë që të jetë 100% width */}
+      <Navbar /> 
+      
+      {/* Vetëm Routes brenda container-it që të qëndrojnë në mes */}
+      <div className="app-container" style={{ minHeight: '70vh' }}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/aes" element={<AESPage />} />
+          <Route path="/des" element={<DESPage />} />
+          <Route path="/rsa" element={<RSAPage />} />
+        </Routes>
       </div>
-    </div>
+
+      {/* Footer jashtë që të jetë 100% width në fund */}
+      <Footer />
+    </Router>
   );
 }
 
