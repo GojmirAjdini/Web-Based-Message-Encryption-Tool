@@ -39,6 +39,7 @@ const Footer = () => {
             <li style={listItemStyle}><UserIcon /> Leonis Vorfaj</li>
             <li style={listItemStyle}><UserIcon /> Gojmir Ajdini</li>
             <li style={listItemStyle}><UserIcon /> Ermal Vecgishti</li>
+            <li style={listItemStyle}><UserIcon /> Rinor Behluli</li>
           </ul>
         </div>
 
