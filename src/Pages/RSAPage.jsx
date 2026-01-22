@@ -11,7 +11,7 @@ const RSAPage = () => {
   const generateNewKeys = () => {
     setIsGenerating(true);
     setTimeout(() => {
-      const crypt = new JSEncrypt({ default_key_size: 1024 });
+      const crypt = new JSEncrypt({ default_key_size: 2048 });
       setKeys({ public: crypt.getPublicKey(), private: crypt.getPrivateKey() });
       setIsGenerating(false);
     }, 500);
